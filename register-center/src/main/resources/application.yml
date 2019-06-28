@@ -1,10 +1,9 @@
 server:
   port: 10000
 
-spring:
-  application:
-    name: register-center
 eureka:
   client:
+    register-with-eureka: false
     fetch-registry: false
-    fe
+    service-url:
+      defaultZone: http://localhost:10000/eureka/
