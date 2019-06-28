@@ -1,5 +1,5 @@
 target/
-!.mvn/wrapper/maven-wrapper.jar
+!s.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
 
@@ -28,3 +28,4 @@ build/
 
 ### VS Code ###
 .vscode/
+/.mvn/
