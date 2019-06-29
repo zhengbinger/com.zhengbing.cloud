@@ -6,5 +6,10 @@ eureka:
     register-with-eureka: false
     fetch-registry: false
     service-url:
-      defaultZone: http://loclahost:10000/eureka/s
+      defaultZone: http://loclahost:10000/eureka/
+
+spring:
+  application:
+    name: register-center
+
 

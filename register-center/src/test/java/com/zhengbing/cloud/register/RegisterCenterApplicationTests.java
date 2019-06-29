@@ -1,4 +1,4 @@
-package com.zhengbing.cloud.registercenter;
+package com.zhengbing.cloud.register;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
