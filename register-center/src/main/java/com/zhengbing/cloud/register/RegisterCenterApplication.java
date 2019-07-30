@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
 /**
- * register-center core work is add  annotation EnableEurekaServer and configuration application.yml
+ * register-center core work is add annotation EnableEurekaServer and configuration application.yml
  */
 @EnableEurekaServer
 @SpringBootApplication
