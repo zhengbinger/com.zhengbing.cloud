@@ -1,15 +1,15 @@
-server:
-  port: 10000
-
-eureka:
-  client:
-    register-with-eureka: false
-    fetch-registry: false
-    service-url:
-      defaultZone: http://loclahost:10000/eureka/
-
 spring:
   application:
     name: register-center
+
+server:
+  port: 10001
+
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://localhost:${server.port}/eureka
 
 
