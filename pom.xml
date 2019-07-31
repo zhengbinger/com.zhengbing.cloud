@@ -12,11 +12,18 @@
     <groupId>com.zhengbing.cloud</groupId>
     <artifactId>com.zhengbing.cloud</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <spring-cloud.version>Greenwich.SR1</spring-cloud.version>
+    </properties>
 
     <modules>
         <module>register-center</module>
-        <module>config-center</module>
+        <module>configure-center</module>
         <module>gateway-center</module>
+        <module>mission-center</module>
     </modules>
 
     <dependencies>
