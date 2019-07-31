@@ -1,19 +1,12 @@
-server:
-  port: 11000
-
 spring:
   application:
     name: config-center
   profiles:
-    active: native
+    active: subversion
   cloud:
     config:
       server:
         native:
           search-locations: classpath:/config
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:10001/eureka/
 
 

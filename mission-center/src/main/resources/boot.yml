@@ -1,0 +1,12 @@
+server:
+    port: 15000
+
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:10001/eureka/
+spring:
+    application:
+        name: mission-center
+    profiles:
+        active: dev
