@@ -1,0 +1,13 @@
+server:
+  port: 11000
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:10001/eureka/
+
+spring:
+  application:
+    name: config-center
+  profiles:
+    active: native
