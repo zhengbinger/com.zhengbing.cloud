@@ -10,4 +10,4 @@ spring:
   application:
     name: @pom.artifactId@
   profiles:
-    active: git
+    active: native

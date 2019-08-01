@@ -1,5 +1,5 @@
 server:
-  port: 20000
+  port: 12100
 
 eureka:
   client:
@@ -15,13 +15,3 @@ spring:
     config:
       profile: dev
       uri: http://localhost:11000/
-#datasource
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/cloud_mission?serverTimezone=UTC&useUnicode=true&useSSL=false
-    username: root
-    password: Zb@123456
-
-mybatis:
-  mapper-locations: classpath:/mapping/*Mapper.xml
-  type-aliases-package: com.zhengbing.cloud.missioncenter.entity
