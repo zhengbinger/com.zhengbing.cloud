@@ -12,6 +12,6 @@ eureka:
 
 spring:
   application:
-    name: register-center
+    name: @pom.artifactId@
 
 

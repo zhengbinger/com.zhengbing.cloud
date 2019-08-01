@@ -8,11 +8,6 @@ eureka:
 
 spring:
   application:
-    name: configure-center
+    name: @pom.artifactId@
   profiles:
-    active: native
-  cloud:
-    config:
-      server:
-        native:
-          search-locations: classpath:/config
+    active: git

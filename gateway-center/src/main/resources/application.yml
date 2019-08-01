@@ -8,7 +8,7 @@ eureka:
 
 spring:
   application:
-    name: gateway-center
+    name: @pom.artifactId@
   cloud:
     config:
       profile: dev
