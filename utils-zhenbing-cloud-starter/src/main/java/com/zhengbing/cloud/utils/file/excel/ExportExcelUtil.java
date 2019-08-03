@@ -2,6 +2,7 @@ package com.zhengbing.cloud.utils.file.excel;
 
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -20,6 +21,7 @@ import java.util.regex.Pattern;
  * @author: zhengbing_vendor
  * @date: 2019/8/2
  */
+@Component
 public class ExportExcelUtil<T> {
 
     /**
@@ -114,9 +116,9 @@ public class ExportExcelUtil<T> {
     }
 
 
-        public void export(String sheetName,String[] headers, Collection<T> dataset, OutputStream out,String dateTimePattern) {
-            exportExcel(sheetName, headers, dataset, out, dateTimePattern);
-        }
+    public void export(String sheetName,String[] headers, Collection<T> dataset, OutputStream out,String dateTimePattern) {
+        exportExcel(sheetName, headers, dataset, out, dateTimePattern);
+    }
 
     /**
      * <p>
@@ -174,6 +176,7 @@ public class ExportExcelUtil<T> {
      * @param headers
      */
     private void fillHeader(HSSFWorkbook workbook,HSSFSheet sheet,String[] headers){
+
         HSSFCellStyle headerStyle = workbook.createCellStyle();
         headerStyle.setFillForegroundColor( IndexedColors.GREY_50_PERCENT.index);
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
