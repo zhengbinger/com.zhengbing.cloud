@@ -1,7 +1,5 @@
 package com.zhengbing.cloud.utils.file.excel;
 
-import org.apache.commons.lang3.StringUtils;
-
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
 import java.util.Collection;
@@ -32,11 +30,7 @@ public class ExportExcelWrapper<T> extends ExportExcelUtil<T> {
             }
             response.setContentType("application/vnd.ms-excel");
             response.addHeader("Content-Disposition", "attachment;filename="+ URLEncoder.encode(fileName, "UTF-8") + extendName);
-            if( StringUtils.isBlank(version) || EXCEL_FILE_2003.equals(version.trim())){
-                exportExcel2003(sheetName, headers, dataset, response.getOutputStream(), ExportExcelUtil.PATTERN_DATE_TIME);
-            }else{
-                exportExcel2007(sheetName, headers, dataset, response.getOutputStream(), ExportExcelUtil.PATTERN_DATE_TIME);
-            }
+            export(sheetName, headers, dataset, response.getOutputStream(), ExportExcelUtil.PATTERN_DATE_TIME);
         } catch (Exception e) {
             e.printStackTrace();
         }

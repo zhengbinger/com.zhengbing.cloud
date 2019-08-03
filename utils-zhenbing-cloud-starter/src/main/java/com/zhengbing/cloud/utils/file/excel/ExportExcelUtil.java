@@ -1,9 +1,7 @@
 package com.zhengbing.cloud.utils.file.excel;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.*;
-import org.apache.poi.hssf.util.HSSFColor;
-import org.apache.poi.xssf.usermodel.*;
+import org.apache.poi.ss.usermodel.*;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -54,6 +52,11 @@ public class ExportExcelUtil<T> {
     public static final String PATTERN_DATE = "yyyy-MM-dd";
 
     /**
+     * 正则匹配规则
+     */
+    public static final String REG_PATTERN = "^//d+(//.//d+)?$";
+
+    /**
      * <p>
      * 导出无标题行，不指定sheet名称，默认sheet名称为sheet1 <br>
      * 时间格式默认：yyyy-MM-dd hh:mm:ss <br>
@@ -64,39 +67,7 @@ public class ExportExcelUtil<T> {
      * @param out 输出流
      */
     public void export( Collection<T> dataset, OutputStream out) {
-        export( dataset, out, EXCEL_FILE_2003 );
-    }
-
-    /**
-     * <p>
-     * 导出带标题行，不指定sheet名称，默认sheet名称为sheet1 <br>
-     * 时间格式默认：yyyy-MM-dd hh:mm:ss <br>
-     * 默认使用版本office 97-03
-     * </p>
-     *
-     * @param dataset 数据集合
-     * @param out 输出流
-     */
-    public void export(String[] headers,Collection<T> dataset, OutputStream out) {
-        export( headers,dataset, out, EXCEL_FILE_2003 );
-    }
-
-    /**
-     * <p>
-     * 导出无标题行，不指定sheet名称，默认sheet名称为sheet1 <br>
-     * 时间格式默认：yyyy-MM-dd hh:mm:ss <br>
-     * </p>
-     *
-     * @param dataset 数据集合
-     * @param out 输出流
-     * @param version 2003 或者 2007，不传时默认生成2003版本
-     */
-    public void export( Collection<T> dataset, OutputStream out, String version) {
-        if(StringUtils.isEmpty(version) || EXCEL_FILE_2003.equals(version.trim())){
-            exportExcel2003(null, null, dataset, out, PATTERN_DATE_TIME);
-        }else{
-            exportExcel2007(null, null, dataset, out, PATTERN_DATE_TIME);
-        }
+        export( "",dataset, out);
     }
 
         /**
@@ -108,15 +79,25 @@ public class ExportExcelUtil<T> {
          * @param sheetName sheet名称
          * @param dataset 数据集合
          * @param out 输出流
-         * @param version 2003 或者 2007，不传时默认生成2003版本
          */
-        public void export( String sheetName, Collection<T> dataset, OutputStream out, String version) {
-            if(StringUtils.isEmpty(version) || EXCEL_FILE_2003.equals(version.trim())){
-                exportExcel2003(sheetName, null, dataset, out, PATTERN_DATE_TIME);
-            }else{
-                exportExcel2007(sheetName, null, dataset, out, PATTERN_DATE_TIME);
-            }
+        public void export( String sheetName, Collection<T> dataset, OutputStream out) {
+            export(sheetName, null, dataset, out, PATTERN_DATE_TIME);
         }
+
+    /**
+     * <p>
+     * 导出带标题行，不指定sheet名称，默认sheet名称为sheet1 <br>
+     * 时间格式默认：yyyy-MM-dd hh:mm:ss <br>
+     * 默认使用版本office 97-03
+     * </p>
+     *
+     * @param headers 标题行信息
+     * @param dataset 数据集合
+     * @param out 输出流
+     */
+    public void export(String[] headers,Collection<T> dataset, OutputStream out) {
+        export(null, headers,dataset, out );
+    }
 
     /**
      * <p>
@@ -127,206 +108,15 @@ public class ExportExcelUtil<T> {
      * @param headers 头部标题集合
      * @param dataset 数据集合
      * @param out 输出流
-     * @param version 2003 或者 2007，不传时默认生成2003版本
      */
-    public void export(String[] headers, Collection<T> dataset, OutputStream out,String version) {
-        if( StringUtils.isBlank(version) || EXCEL_FILE_2003.equals(version.trim())){
-            exportExcel2003(null,headers, dataset, out, PATTERN_DATE_TIME);
-        }else{
-            exportExcel2007(null, headers, dataset, out, PATTERN_DATE_TIME);
-        }
-    }
-
-        /**
-         * <p>
-         * 导出带有头部标题行的Excel <br>
-         * 时间格式默认：yyyy-MM-dd hh:mm:ss <br>
-         * </p>
-         *
-         * @param sheetName 表格标题
-         * @param headers 头部标题集合
-         * @param dataset 数据集合
-         * @param out 输出流
-         * @param version 2003 或者 2007，不传时默认生成2003版本
-         */
-        public void export(String sheetName,String[] headers, Collection<T> dataset, OutputStream out,String version) {
-            if( StringUtils.isBlank(version) || EXCEL_FILE_2003.equals(version.trim())){
-                exportExcel2003(sheetName, headers, dataset, out, PATTERN_DATE_TIME);
-            }else{
-                exportExcel2007(sheetName, headers, dataset, out, PATTERN_DATE_TIME);
-            }
-        }
-
-
-    /**
-     * <p>
-     * 通用Excel导出方法,利用反射机制遍历对象的所有字段，将数据写入Excel文件中 <br>
-     * 此版本生成2007以上版本的文件 (文件后缀：xlsx)
-     * </p>
-     *
-     * @param title
-     *            表格标题名
-     * @param headers
-     *            表格头部标题集合
-     * @param dataset
-     *            需要显示的数据集合,集合中一定要放置符合JavaBean风格的类的对象。此方法支持的
-     *            JavaBean属性的数据类型有基本数据类型及String,Date
-     * @param out
-     *            与输出设备关联的流对象，可以将EXCEL文档导出到本地文件或者网络中
-     * @param pattern
-     *            如果有时间数据，设定输出格式。默认为"yyyy-MM-dd hh:mm:ss"
-     */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    public void exportExcel2007(String title, String[] headers, Collection<T> dataset, OutputStream out, String pattern) {
-        // 声明一个工作薄
-        XSSFWorkbook workbook = new XSSFWorkbook();
-        // 生成一个表格
-       XSSFSheet sheet = null;
-        if ( null == title ){
-            sheet = workbook.createSheet("sheet1");
-        }else {
-            sheet = workbook.createSheet(title);
-        }
-        // 设置表格默认列宽度为15个字节
-        sheet.setDefaultColumnWidth(20);
-        // 生成一个样式
-        XSSFCellStyle style = workbook.createCellStyle();
-        // 设置这些样式
-        style.setFillForegroundColor(new XSSFColor(java.awt.Color.gray));
-        style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
-        style.setBorderBottom(XSSFCellStyle.BORDER_THIN);
-        style.setBorderLeft(XSSFCellStyle.BORDER_THIN);
-        style.setBorderRight(XSSFCellStyle.BORDER_THIN);
-        style.setBorderTop(XSSFCellStyle.BORDER_THIN);
-        style.setAlignment(XSSFCellStyle.ALIGN_CENTER);
-        // 生成一个字体
-        XSSFFont font = workbook.createFont();
-        font.setBoldweight(XSSFFont.BOLDWEIGHT_BOLD);
-        font.setFontName("宋体");
-        font.setColor(new XSSFColor(java.awt.Color.BLACK));
-        font.setFontHeightInPoints((short) 11);
-        // 把字体应用到当前的样式
-        style.setFont(font);
-        // 生成并设置另一个样式
-        XSSFCellStyle style2 = workbook.createCellStyle();
-        style2.setFillForegroundColor(new XSSFColor(java.awt.Color.WHITE));
-        style2.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
-        style2.setBorderBottom(XSSFCellStyle.BORDER_THIN);
-        style2.setBorderLeft(XSSFCellStyle.BORDER_THIN);
-        style2.setBorderRight(XSSFCellStyle.BORDER_THIN);
-        style2.setBorderTop(XSSFCellStyle.BORDER_THIN);
-        style2.setAlignment(XSSFCellStyle.ALIGN_CENTER);
-        style2.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER);
-        // 生成另一个字体
-        XSSFFont font2 = workbook.createFont();
-        font2.setBoldweight(XSSFFont.BOLDWEIGHT_NORMAL);
-        // 把字体应用到当前的样式
-        style2.setFont(font2);
-
-        // 产生表格标题行
-        XSSFRow row = sheet.createRow(0);
-        XSSFCell cellHeader;
-        if ( null != headers && headers.length>0 ){
-            for (int i = 0; i < headers.length; i++) {
-                cellHeader = row.createCell(i);
-                cellHeader.setCellStyle(style);
-                cellHeader.setCellValue(new HSSFRichTextString(headers[i]));
-            }
-        }
-
-        // 遍历集合数据，产生数据行
-        Iterator<T> it = dataset.iterator();
-        int index = 0;
-        T t;
-        Field[] fields;
-        Field field;
-        XSSFRichTextString richString;
-        Pattern p = Pattern.compile("^//d+(//.//d+)?$");
-        Matcher matcher;
-        String fieldName;
-        String getMethodName;
-        XSSFCell cell;
-        Class tCls;
-        Method getMethod;
-        Object value;
-        String textValue;
-        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-        while (it.hasNext()) {
-            index++;
-            row = sheet.createRow(index);
-            t = (T) it.next();
-            // 利用反射，根据JavaBean属性的先后顺序，动态调用getXxx()方法得到属性值
-            fields = t.getClass().getDeclaredFields();
-            for (int i = 0; i < fields.length; i++) {
-                cell = row.createCell(i);
-                cell.setCellStyle(style2);
-                field = fields[i];
-                fieldName = field.getName();
-                getMethodName = "get" + fieldName.substring(0, 1).toUpperCase()
-                        + fieldName.substring(1);
-                try {
-                    tCls = t.getClass();
-                    getMethod = tCls.getMethod(getMethodName, new Class[] {});
-                    value = getMethod.invoke(t, new Object[] {});
-                    // 判断值的类型后进行强制类型转换
-                    textValue = null;
-                    if (value instanceof Integer) {
-                        cell.setCellValue((Integer) value);
-                    } else if (value instanceof Float) {
-                        textValue = String.valueOf((Float) value);
-                        cell.setCellValue(textValue);
-                    } else if (value instanceof Double) {
-                        textValue = String.valueOf((Double) value);
-                        cell.setCellValue(textValue);
-                    } else if (value instanceof Long) {
-                        cell.setCellValue((Long) value);
-                    }
-                    if (value instanceof Boolean) {
-                        textValue = "是";
-                        if (!(Boolean) value) {
-                            textValue = "否";
-                        }
-                    } else if (value instanceof Date) {
-                        textValue = sdf.format((Date) value);
-                    } else {
-                        // 其它数据类型都当作字符串简单处理
-                        if (value != null) {
-                            textValue = value.toString();
-                        }
-                    }
-                    if (textValue != null) {
-                        matcher = p.matcher(textValue);
-                        if (matcher.matches()) {
-                            // 是数字当作double处理
-                            cell.setCellValue(Double.parseDouble(textValue));
-                        } else {
-                            richString = new XSSFRichTextString(textValue);
-                            cell.setCellValue(richString);
-                        }
-                    }
-                } catch (SecurityException e) {
-                    e.printStackTrace();
-                } catch (NoSuchMethodException e) {
-                    e.printStackTrace();
-                } catch (IllegalArgumentException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                } finally {
-                    // 清理资源
-                }
-            }
-        }
-        try {
-            workbook.write(out);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void export(String sheetName,String[] headers, Collection<T> dataset, OutputStream out) {
+        export( sheetName,headers, dataset, out,PATTERN_DATE_TIME );
     }
 
 
+        public void export(String sheetName,String[] headers, Collection<T> dataset, OutputStream out,String dateTimePattern) {
+            exportExcel(sheetName, headers, dataset, out, dateTimePattern);
+        }
 
     /**
      * <p>
@@ -346,53 +136,58 @@ public class ExportExcelUtil<T> {
      * @param pattern
      *            如果有时间数据，设定输出格式。默认为"yyyy-MM-dd hh:mm:ss"
      */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    public void exportExcel2003(String title, String[] headers, Collection<T> dataset, OutputStream out, String pattern) {
-        // 声明一个工作薄
+    public void exportExcel(String title, String[] headers, Collection<T> dataset, OutputStream out, String pattern) {
+
         HSSFWorkbook workbook = new HSSFWorkbook();
-        // 生成一个表格
-        HSSFSheet sheet = null;
+        HSSFSheet sheet;
         if ( null == title ){
-           sheet = workbook.createSheet("sheet1");
+            sheet = workbook.createSheet("sheet1");
         }else {
             sheet = workbook.createSheet(title);
         }
 
         // 设置表格默认列宽度为15个字节
         sheet.setDefaultColumnWidth(20);
-        // 生成一个样式
-        HSSFCellStyle style = workbook.createCellStyle();
-        // 设置这些样式
-        style.setFillForegroundColor( HSSFColor.GREY_50_PERCENT.index);
-        style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
-        style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-        style.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-        style.setBorderRight(HSSFCellStyle.BORDER_THIN);
-        style.setBorderTop(HSSFCellStyle.BORDER_THIN);
-        style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-        // 生成一个字体
+
+        // 填充表格标题
+        fillHeader(workbook,sheet,headers);
+        fillData( workbook,sheet,dataset,pattern );
+
+        try {
+            workbook.write(out);
+        } catch ( IOException e) {
+            e.printStackTrace();
+        }finally {
+            try{
+                out.close();
+            }catch ( IOException e ){
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    /**
+     * 填充标题
+     *
+     * @param workbook
+     * @param headers
+     */
+    private void fillHeader(HSSFWorkbook workbook,HSSFSheet sheet,String[] headers){
+        HSSFCellStyle headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor( IndexedColors.GREY_50_PERCENT.index);
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setBorderBottom(BorderStyle.THIN);
+        headerStyle.setBorderLeft(BorderStyle.THIN);
+        headerStyle.setBorderRight(BorderStyle.THIN);
+        headerStyle.setBorderTop(BorderStyle.THIN);
+        headerStyle.setAlignment(HorizontalAlignment.CENTER);
         HSSFFont font = workbook.createFont();
-        font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+        font.setBold(true);
         font.setFontName("宋体");
-        font.setColor(HSSFColor.WHITE.index);
+        font.setColor( IndexedColors.WHITE.index);
         font.setFontHeightInPoints((short) 11);
-        // 把字体应用到当前的样式
-        style.setFont(font);
-        // 生成并设置另一个样式
-        HSSFCellStyle style2 = workbook.createCellStyle();
-        style2.setFillForegroundColor(HSSFColor.WHITE.index);
-        style2.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
-        style2.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-        style2.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-        style2.setBorderRight(HSSFCellStyle.BORDER_THIN);
-        style2.setBorderTop(HSSFCellStyle.BORDER_THIN);
-        style2.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-        style2.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
-        // 生成另一个字体
-        HSSFFont font2 = workbook.createFont();
-        font2.setBoldweight(HSSFFont.BOLDWEIGHT_NORMAL);
-        // 把字体应用到当前的样式
-        style2.setFont(font2);
+        headerStyle.setFont(font);
 
         // 产生表格标题行
         HSSFRow row = sheet.createRow(0);
@@ -400,100 +195,106 @@ public class ExportExcelUtil<T> {
         if ( null != headers && headers.length>0 ){
             for (int i = 0; i < headers.length; i++) {
                 cellHeader = row.createCell(i);
-                cellHeader.setCellStyle(style);
+                cellHeader.setCellStyle(headerStyle);
                 cellHeader.setCellValue(new HSSFRichTextString(headers[i]));
             }
         }
+    }
 
-        // 遍历集合数据，产生数据行
-        Iterator<T> it = dataset.iterator();
+    /**
+     * 填充数据
+     * @param workbook
+     * @param sheet
+     * @param dataset
+     * @param datePattern
+     */
+    private void fillData(HSSFWorkbook workbook,HSSFSheet sheet,Collection<T> dataset,String datePattern ){
+
+        HSSFCellStyle contentStyle = workbook.createCellStyle();
+        contentStyle.setFillForegroundColor(IndexedColors.WHITE.index);
+        contentStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        contentStyle.setBorderBottom(BorderStyle.THIN);
+        contentStyle.setBorderLeft(BorderStyle.THIN);
+        contentStyle.setBorderRight(BorderStyle.THIN);
+        contentStyle.setBorderTop(BorderStyle.THIN);
+        contentStyle.setAlignment(HorizontalAlignment.CENTER);
+        contentStyle.setVerticalAlignment( VerticalAlignment.CENTER);
+        HSSFFont contentFont = workbook.createFont();
+        contentFont.setBold(false);
+        contentStyle.setFont(contentFont);
+
+        Iterator<T> datas = dataset.iterator();
         int index = 0;
-        T t;
-        Field[] fields;
         Field field;
-        HSSFRichTextString richString;
-        Pattern p = Pattern.compile("^//d+(//.//d+)?$");
-        Matcher matcher;
         String fieldName;
         String getMethodName;
-        HSSFCell cell;
-        Class tCls;
+        Class clazz;
         Method getMethod;
         Object value;
-        String textValue;
-        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-        while (it.hasNext()) {
+        while (datas.hasNext()) {
             index++;
-            row = sheet.createRow(index);
-            t = (T) it.next();
+            HSSFRow row = sheet.createRow(index);
+            T data = datas.next();
             // 利用反射，根据JavaBean属性的先后顺序，动态调用getXxx()方法得到属性值
-            fields = t.getClass().getDeclaredFields();
+            Field[] fields = data.getClass().getDeclaredFields();
             for (int i = 0; i < fields.length; i++) {
-                cell = row.createCell(i);
-                cell.setCellStyle(style2);
+                HSSFCell cell = row.createCell(i);
+                cell.setCellStyle(contentStyle);
                 field = fields[i];
                 fieldName = field.getName();
                 getMethodName = "get" + fieldName.substring(0, 1).toUpperCase()
                         + fieldName.substring(1);
                 try {
-                    tCls = t.getClass();
-                    getMethod = tCls.getMethod(getMethodName, new Class[] {});
-                    value = getMethod.invoke(t, new Object[] {});
-                    // 判断值的类型后进行强制类型转换
-                    textValue = null;
-                    if (value instanceof Integer) {
-                        cell.setCellValue((Integer) value);
-                    } else if (value instanceof Float) {
-                        textValue = String.valueOf((Float) value);
-                        cell.setCellValue(textValue);
-                    } else if (value instanceof Double) {
-                        textValue = String.valueOf((Double) value);
-                        cell.setCellValue(textValue);
-                    } else if (value instanceof Long) {
-                        cell.setCellValue((Long) value);
-                    }
-                    if (value instanceof Boolean) {
-                        textValue = "是";
-                        if (!(Boolean) value) {
-                            textValue = "否";
-                        }
-                    } else if (value instanceof Date ) {
-                        textValue = sdf.format((Date) value);
-                    } else {
-                        // 其它数据类型都当作字符串简单处理
-                        if (value != null) {
-                            textValue = value.toString();
-                        }
-                    }
-                    if (textValue != null) {
-                        matcher = p.matcher(textValue);
-                        if (matcher.matches()) {
-                            // 是数字当作double处理
-                            cell.setCellValue(Double.parseDouble(textValue));
+                    clazz = data.getClass();
+                    getMethod = clazz.getMethod( getMethodName, new Class[]{} );
+                    value = getMethod.invoke( data, new Object[]{} );
+                    SimpleDateFormat sdf = new SimpleDateFormat(datePattern);
+                    Pattern dataPattern = Pattern.compile( REG_PATTERN );
+                    String textValue ="";
+                    if ( value instanceof Integer ){
+                        cell.setCellValue( ( Integer ) value );
+                    } else if ( value instanceof Float ){
+                        textValue = String.valueOf( ( Float ) value );
+                        cell.setCellValue( textValue );
+                    } else if ( value instanceof Double ){
+                        textValue = String.valueOf( ( Double ) value );
+                        cell.setCellValue( textValue );
+                    } else if ( value instanceof Long ){
+                        cell.setCellValue( ( Long ) value );
+                    } else{
+                        if ( value instanceof Boolean ){
+                            textValue = "是";
+                            if ( !( Boolean ) value ){
+                                textValue = "否";
+                            }
+                        } else if ( value instanceof Date ){
+                            textValue = sdf.format( ( Date ) value );
+
                         } else {
-                            richString = new HSSFRichTextString(textValue);
-                            cell.setCellValue(richString);
+                            // 其它数据类型都当作字符串简单处理
+                            if ( value != null ){
+                                textValue = value.toString();
+                            }
+                        }
+                        if ( textValue != null ){
+                            Matcher matcher = dataPattern.matcher( textValue );
+                            if ( matcher.matches() ){
+                                // 是数字当作double处理
+                                cell.setCellValue( Double.parseDouble( textValue ) );
+                            } else {
+                                HSSFRichTextString richString = new HSSFRichTextString( textValue );
+                                cell.setCellValue( richString );
+                            }
                         }
                     }
-                } catch (SecurityException e) {
+                }  catch (NoSuchMethodException e) {
                     e.printStackTrace();
-                } catch (NoSuchMethodException e) {
+                } catch ( IllegalAccessException e ) {
                     e.printStackTrace();
-                } catch (IllegalArgumentException e) {
+                } catch ( InvocationTargetException e ) {
                     e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch ( InvocationTargetException e) {
-                    e.printStackTrace();
-                } finally {
-                    // 清理资源
                 }
             }
-        }
-        try {
-            workbook.write(out);
-        } catch ( IOException e) {
-            e.printStackTrace();
         }
     }
 }
