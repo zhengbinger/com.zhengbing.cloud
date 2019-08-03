@@ -7,11 +7,9 @@ package com.zhengbing.cloud.utils.file.excel;
  */
 public class UserModel {
 
-
     private String employeeId;
     private String name;
     private int  age;
-
 
     public UserModel(String employeeId,String name ,int age){
         this.employeeId = employeeId;
