@@ -10,9 +10,11 @@ import java.util.Collection;
  * @date: 2019/8/2
  */
 public class ExportExcelWrapper<T> extends ExportExcelUtil<T> {
+
+
     /**
      * <p>
-     * 导出带有头部标题行的Excel <br>
+     * 导出带有头部标题行的Excel <br> 提供下载，使用response返回给客户端
      * 时间格式默认：yyyy-MM-dd hh:mm:ss <br>
      * </p>
      *
