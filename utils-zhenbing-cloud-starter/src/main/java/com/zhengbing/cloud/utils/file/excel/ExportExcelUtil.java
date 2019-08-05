@@ -72,19 +72,19 @@ public class ExportExcelUtil<T> {
         export( "",dataset, out);
     }
 
-        /**
-         * <p>
-         * 导出无头部标题行Excel <br>
-         * 时间格式默认：yyyy-MM-dd hh:mm:ss <br>
-         * </p>
-         *
-         * @param sheetName sheet名称
-         * @param dataset 数据集合
-         * @param out 输出流
-         */
-        public void export( String sheetName, Collection<T> dataset, OutputStream out) {
-            export(sheetName, null, dataset, out, PATTERN_DATE_TIME);
-        }
+    /**
+     * <p>
+     * 导出无头部标题行Excel <br>
+     * 时间格式默认：yyyy-MM-dd hh:mm:ss <br>
+     * </p>
+     *
+     * @param sheetName sheet名称
+     * @param dataset   数据集合
+     * @param out       输出流
+     */
+    public void export(String sheetName, Collection<T> dataset, OutputStream out) {
+        export(sheetName, null, dataset, out, PATTERN_DATE_TIME);
+    }
 
     /**
      * <p>
