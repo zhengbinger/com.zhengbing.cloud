@@ -33,6 +33,6 @@ public class ExportExcelController {
           headers = new String[]{ "员工ID", "姓名", "年龄" };
           fileName = "excel1";
           ExportExcelWrapper<UserModel> util = new ExportExcelWrapper<UserModel>();
-          util.exportExcel(fileName, fileName, headers, list, response, ExportExcelUtil.EXCEL_FILE_2003);
+          util.exportExcel(fileName, fileName, headers, list, response);
      }
 }

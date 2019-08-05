@@ -20,14 +20,10 @@ public class ExportExcelWrapper<T> extends ExportExcelUtil<T> {
      * @param headers 头部标题集合
      * @param dataset 数据集合
      * @paran response Http响应对象
-     * @param version 2003 或者 2007，不传时默认生成2003版本
      */
-    public void exportExcel( String fileName, String sheetName, String[] headers, Collection<T> dataset, HttpServletResponse response, String version) {
+    public void exportExcel( String fileName, String sheetName, String[] headers, Collection<T> dataset, HttpServletResponse response) {
         try {
             String extendName = ExportExcelUtil.EXCEL_FILE_EXTEND_NAME_03;
-            if ( ExportExcelUtil.EXCEL_FILE_2007.equals( version ) ){
-                extendName = ExportExcelUtil.EXCEL_FILE_EXTEND_NAME_07;
-            }
             response.setContentType("application/vnd.ms-excel");
             response.addHeader("Content-Disposition", "attachment;filename="+ URLEncoder.encode(fileName, "UTF-8") + extendName);
             export(sheetName, headers, dataset, response.getOutputStream(), ExportExcelUtil.PATTERN_DATE_TIME);
