@@ -1,5 +1,5 @@
 server:
-  port: 10000
+  port: 10009
 
 eureka:
   client:
@@ -13,5 +13,9 @@ eureka:
 spring:
   application:
     name: @pom.artifactId@
+  security:
+    user:
+      name: zhengbing
+      password: zhengbing
 
 

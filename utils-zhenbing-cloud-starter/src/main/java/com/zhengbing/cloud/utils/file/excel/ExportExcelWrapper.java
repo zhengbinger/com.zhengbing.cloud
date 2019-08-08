@@ -9,7 +9,7 @@ import java.util.Collection;
  * @author: zhengbing_vendor
  * @date: 2019/8/2
  */
-public class ExportExcelWrapper<T> extends ExportExcelUtil<T> {
+public class ExportExcelWrapper<T> extends ExportExcelUtil03<T> {
 
 
     /**
@@ -25,10 +25,10 @@ public class ExportExcelWrapper<T> extends ExportExcelUtil<T> {
      */
     public void exportExcel( String fileName, String sheetName, String[] headers, Collection<T> dataset, HttpServletResponse response) {
         try {
-            String extendName = ExportExcelUtil.EXCEL_FILE_EXTEND_NAME_03;
+            String extendName = ExportExcelUtil03.EXCEL_FILE_EXTEND_NAME_03;
             response.setContentType("application/vnd.ms-excel");
             response.addHeader("Content-Disposition", "attachment;filename="+ URLEncoder.encode(fileName, "UTF-8") + extendName);
-            export(sheetName, headers, dataset, response.getOutputStream(), ExportExcelUtil.PATTERN_DATE_TIME);
+            export(sheetName, headers, dataset, response.getOutputStream(), ExportExcelUtil03.PATTERN_DATE_TIME);
         } catch (Exception e) {
             e.printStackTrace();
         }

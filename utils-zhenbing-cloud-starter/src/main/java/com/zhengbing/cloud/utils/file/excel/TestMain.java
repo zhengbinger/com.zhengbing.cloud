@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class TestMain {
         public static void main(String[] args) throws Exception{
-            ExportExcelUtil<UserModel> util = new ExportExcelUtil<UserModel>();
+            ExportExcelUtil03<UserModel> util = new ExportExcelUtil03<UserModel>();
             // 准备数据
             List<UserModel> list = new ArrayList<>();
             for (int i = 0; i < 10; i++) {
@@ -21,6 +21,6 @@ public class TestMain {
             }
             String[] columnNames = { "员工ID", "姓名", "年龄" };
 //            util.export(  list, new FileOutputStream("D:/test.xls"));
-            util.exportExcel("sheet", columnNames, list, new FileOutputStream( "D:/test.xls"), ExportExcelUtil.PATTERN_DATE_TIME);
+            util.exportExcel("sheet", columnNames, list, new FileOutputStream( "D:/test.xls"), ExportExcelUtil03.PATTERN_DATE_TIME);
         }
     }
