@@ -5,10 +5,11 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author zhengbing
- * @descript 工具包starter核心控制类
+ *
+ * 工具包starter核心控制类
  * @date 2019-08-01
- * @email mydreambing@126.com
+ * @author zhengbing
+ * @E-mail mydreambing@126.com
  * @since version 1.0
  */
 @Configuration

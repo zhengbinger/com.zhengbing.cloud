@@ -1,7 +1,7 @@
 package com.zhengbing.cloud.utils.file;
 
 /**
- * @Description:
+ * @description:
  * @author: zhengbing_vendor
  * @date: 2019/8/8
  */
