@@ -1,23 +1,21 @@
-package com.zhengbing.cloud.configurecenter;
+package com.zhengbing.cloud.userprovider;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.config.server.EnableConfigServer;
 
 /**
- * 配置中心
+ * 用户服务
  *
  * @author zhengbing_vendor
  * @date 2019/9/4
  */
-@EnableConfigServer
 @EnableDiscoveryClient
 @SpringBootApplication
-public class ConfigureCenterApplication{
+public class UserProviderApplication{
 
     public static void main(String[] args){
-        SpringApplication.run(ConfigureCenterApplication.class,args);
+        SpringApplication.run(UserProviderApplication.class,args);
     }
 
 }

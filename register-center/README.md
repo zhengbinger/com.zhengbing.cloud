@@ -83,7 +83,7 @@ spring:
         </dependencies>
     </dependencyManagement>
 ```
-步骤二：注册服务治理客户端
+#### 步骤二：注册服务治理客户端
 在工程主类中通过加上@EnableDiscoveryClient注解，该注解能激活Eureka中的DiscoveryClient实现
 ````
 @EnableDiscoveryClient
@@ -96,7 +96,7 @@ public class MissionCenterApplication{
 
 }
 ````
-步骤三：配置application.yml配置文件
+#### 步骤三：配置application.yml配置文件
 ````
 server:
   port: 12100
@@ -110,7 +110,7 @@ spring:
   application:
     name: mission-center
 ````
-步骤四：写接口
+#### 步骤四：写接口
 实现请求处理接口，通过DiscoveryClient对象，在日志中打印出服务实例的相关内容。
 ````
 @RequestMapping("/test")
@@ -120,8 +120,9 @@ public String test(){
     return service;
 }
 ````
-步骤五：启动服务提供者
+#### 步骤五：启动服务提供者
 启动工程，访问http://localhost:12100/test
 页面返回打印出注册中心的所有服务
+
 ## 高可用配置
 
