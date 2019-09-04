@@ -2,20 +2,16 @@ server:
   port: 10009
 
 eureka:
+  instance:
+    # 实例主机名
+    hostname: localhost
   client:
     # 是否从其他的服务中心同步服务列表
     fetch-registry: false
     # 是否把自己作为服务注册到其他服务注册中心
     register-with-eureka: false
-    service-url:
-      defaultZone: http://localhost:10009//eureka
 
 spring:
   application:
     name: @pom.artifactId@
-  security:
-    user:
-      name: zhengbing
-      password: zhengbing
-
 

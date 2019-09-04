@@ -24,7 +24,6 @@
         <module>configure-center</module>
         <module>gateway-center</module>
         <module>mission-center</module>
-        <module>utils-zhenbing-cloud-starter</module>
     </modules>
 
     <dependencies>
