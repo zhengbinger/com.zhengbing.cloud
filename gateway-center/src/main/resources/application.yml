@@ -1,6 +1,6 @@
 server:
   port: 12000
-  
+
 eureka:
   client:
     service-url:
@@ -11,5 +11,4 @@ spring:
     name: @pom.artifactId@
   cloud:
     config:
-      profile: dev
       uri: http://localhost:11000/

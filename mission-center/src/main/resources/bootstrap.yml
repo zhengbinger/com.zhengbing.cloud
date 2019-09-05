@@ -9,11 +9,6 @@ eureka:
 spring:
   application:
     name: mission-center
-
-
-
-
-
   profiles:
     active: dev
   cloud:

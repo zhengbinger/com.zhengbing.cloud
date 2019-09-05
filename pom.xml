@@ -20,6 +20,7 @@
     </properties>
 
     <modules>
+        <module>authorization-center</module>
         <module>register-center</module>
         <module>configure-center</module>
         <module>gateway-center</module>
