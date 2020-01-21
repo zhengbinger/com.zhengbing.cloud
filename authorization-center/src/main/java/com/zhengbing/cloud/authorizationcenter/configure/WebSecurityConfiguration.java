@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
- * @description: web安装配置
+ * @description: web安全配置
  * @author: zhengbing_vendor
  * @date: 2019/9/5
  */

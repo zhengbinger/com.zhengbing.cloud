@@ -23,7 +23,7 @@
     </dependencyManagement>
 ``````
 #### 步骤二：注册服务注册中心
-通过@EnableEurekaServer注解启动一个服务注册中心提供给其他应用进行对话。只需要在一个普通的Spring Boot应用中添加这个注解就能开启此功能，代码如下：
+通过@EnableEurekaServer注解启动一个服务注册中心提供给其他应用进行对话。只需要在一个普通的Spring Boot应用中添加注解就能开启此功能，代码如下：
 ``````
 @EnableEurekaServer
 @SpringBootApplication

@@ -3,4 +3,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/zhengbinger/config-center.git
+          uri: https://github.com/zhengbinger/config-center
+          search-paths: '{application}'
+          username: zhengbinger
+          password: Zb@123456

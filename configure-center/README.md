@@ -1,7 +1,8 @@
 # 微服务配置中心
 ## Spring Cloud Config 实现分布式配置
 ### 准备配置仓库
-    本人以相对路径（项目工程路径下的本地文件系统为例）
+    本人以相对路径（当前项目工程路径下的本地文件系统为例）
+    classpath:/config
 ### 创建配置中心
 #### 步骤一：加入依赖
 创建一个基础的Spring Boot工程，并在pom.xml中引入依赖
@@ -35,6 +36,7 @@ eureka:
     service-url:
       defaultZone: http://localhost:10009/eureka/
 
+# 本地文件存储方式
 spring:
   application:
     name: @pom.artifactId@
@@ -45,6 +47,17 @@ spring:
       server:
         native:
           search-locations: classpath:/config
+~~~ 
+# git 存储方式
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/zhengbinger/config-center
+          search-paths: '{application}'
+          username: zhengbinger
+          password: ******
 ````
 
 
