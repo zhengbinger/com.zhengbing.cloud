@@ -64,16 +64,16 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      * <p>
      * 用来配置令牌端点(Token Endpoint)的安全约束；
      *
-     * @param security
-     * @throws Exception
+     * @param security AuthorizationServerSecurityConfigurer
+     * @throws Exception Exception
      */
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         // 允许客户端访问 OAuth2 授权接口，否则请求 token 会返回 401
         security.allowFormAuthenticationForClients();
-//        // 允许已授权用户访问 checkToken 接口
+        // 允许已授权用户访问 checkToken 接口
         security.checkTokenAccess("isAuthenticated()");
-//        // 获取 token 接口
+        // 获取 token 接口
         security.tokenKeyAccess("permitAll()");
     }
 
