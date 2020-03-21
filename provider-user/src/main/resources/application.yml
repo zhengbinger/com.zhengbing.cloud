@@ -1,0 +1,35 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: provider-user
+  redis:
+    database: 2
+    host: localhost
+    port: 6379
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+    timeout: 100ms
+    password: 123456
+
+
+## client-id、client-secret 要和认证服务中的配置一致，如果是使用 inMemory 还是 jdbc 方式。
+## user-authorization-uri 是授权码认证方式需要的
+## access-token-uri 是密码模式需要用到的获取 token 的接口。
+## authorization.check-token-access 也是关键信息，当此服务端接收到来自客户端端的请求后，需要拿着请求中的 token 到认证服务端做 token 验证，就是请求的这个接口
+security:
+  oauth2:
+    client:
+      client-id: zhengbing
+      client-secret: 123456
+      user-authorization-uri: http://localhost:20000/oauth/authorize
+      access-token-uri: http://localhost:20000/oauth/token
+    resource:
+      user-info-uri: http://localhost:20000/users/current
+    authorization:
+      check-token-access: http://localhost:20000/oauth/check_token
+

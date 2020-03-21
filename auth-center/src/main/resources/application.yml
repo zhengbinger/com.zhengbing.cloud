@@ -1,0 +1,8 @@
+spring:
+  devtools:
+    livereload:
+      enabled: true
+      port: 35279
+    remote:
+      restart:
+        enabled: true
