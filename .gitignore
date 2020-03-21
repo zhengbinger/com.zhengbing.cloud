@@ -29,6 +29,4 @@ build/
 ### VS Code ###
 .vscode/
 */.mvn/
-mission-center.iml
 .mvn/
-src/main/java/com/zhengbing/cloud/authorizationcenter/service/
