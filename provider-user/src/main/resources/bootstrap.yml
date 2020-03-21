@@ -2,3 +2,13 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:10009/eureka/
+
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: auth-center
+  cloud:
+    config:
+      uri: http://localhost:11000/

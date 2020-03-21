@@ -1,10 +1,15 @@
 package com.zhengbing.cloud.provideruser.controller;
 
+import com.zhengbing.cloud.provideruser.entity.AuthUser;
+import com.zhengbing.cloud.provideruser.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
@@ -15,7 +20,7 @@ import java.security.Principal;
  **/
 @Slf4j
 @RestController
-public class TestController {
+public class UserController {
 
 
     @GetMapping("/product/{id}")
@@ -37,5 +42,16 @@ public class TestController {
         log.info("authentication: " + authentication.getAuthorities().toString());
 
         return oAuth2Authentication;
+    }
+
+    @Autowired
+    private UserService userService;
+
+    @PostMapping("/register")
+    public AuthUser register(String username, String password) {
+        if (StringUtils.isNotEmpty(username) && StringUtils.isNotEmpty(password)) {
+            return userService.create(username, password);
+        }
+        return null;
     }
 }

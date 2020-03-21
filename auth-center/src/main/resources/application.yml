@@ -6,3 +6,5 @@ spring:
     remote:
       restart:
         enabled: true
+  main:
+    allow-bean-definition-overriding: true

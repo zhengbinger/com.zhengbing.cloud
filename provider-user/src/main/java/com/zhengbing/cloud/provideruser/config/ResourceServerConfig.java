@@ -21,6 +21,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 // 配置order访问控制，必须认证后才可以访问
-                .antMatchers("/order/**").authenticated();
+                .antMatchers("/order/**", "/user/**").authenticated();
     }
 }
