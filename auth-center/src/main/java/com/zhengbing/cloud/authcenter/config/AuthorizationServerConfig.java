@@ -78,7 +78,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     /**
      * 用来配置客户端详情服务
-     * 客户端详情信息在这里进行初始化，你能够把客户端详情信息写死在这里或者是通过数据库来存储调取详情信息，
+     * 客户端详情信息在这里进行初始化，能够把客户端详情信息写死在这里或者是通过数据库来存储调取详情信息，
      * 一般使用数据库来存储或读取应用配置的详情信息（client_id ，client_secret，redirect_uri 等配置信息）
      * 在这里定义各个端的约束条件。
      * ClientId、Client-Secret：这两个参数对应请求端定义的 cleint-id 和 client-secret
@@ -92,7 +92,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      * <p>
      * accessTokenValiditySeconds：token 的有效期
      * scopes：用来限制客户端访问的权限，在换取的 token 的时候会带上 scope 参数，只有在 scopes 定义内的，才可以正常换取 token。
-     * 上面代码中是使用 inMemory 方式存储的，将配置保存到内存中，相当于硬编码了。正式环境下的做法是持久化到数据库中，比如 mysql 中。
      *
      * @param clients ClientDetailsServiceConfigurer
      * @throws Exception Exception
@@ -128,7 +127,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      * 用来配置授权（authorization）以及令牌（token）的访问端点和令牌服务(token services)，还有token的存储方式(tokenStore)；
      *
      * @param endpoints AuthorizationServerEndpointsConfigurer
-     * @throws Exception
+     * @throws Exception Exception
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
