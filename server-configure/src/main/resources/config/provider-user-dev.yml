@@ -3,7 +3,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/auth-center?nullCatalogMeansCurrent=true&autoReconnect=true&serverTimezone=Asia/Shanghai
     username: root
-    password: root
+    password: Zb@123456
   jpa:
     show-sql: true
     generate-ddl: true

@@ -1,2 +1,11 @@
 server:
   port: 10110
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:10000/eureka
+
+
+spring:
+  application:
+    name: server-monitor

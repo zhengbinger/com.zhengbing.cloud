@@ -14,7 +14,7 @@ spring:
         max-idle: 8
         min-idle: 0
     timeout: 100ms
-    password: 123456
+#    password: 123456
 
 
 ## client-id、client-secret 要和认证服务中的配置一致，如果是使用 inMemory 还是 jdbc 方式。
