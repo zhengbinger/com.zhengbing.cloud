@@ -20,10 +20,11 @@
     </properties>
 
     <modules>
-        <module>auth-center</module>
-        <module>register-center</module>
-        <module>configure-center</module>
-        <module>gateway-center</module>
+        <module>server-register</module>
+        <module>server-configure</module>
+        <module>server-auth</module>
+        <module>server-gateway</module>
+        <module>server-monitor</module>
         <module>provider-user</module>
     </modules>
 

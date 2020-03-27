@@ -1,6 +1,0 @@
-server:
-  port: 10009
-
-spring:
-  application:
-    name: @pom.artifactId@
