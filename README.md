@@ -4,3 +4,6 @@
 springboot 2.2.5  
 spring cloud Hoxton.SR3  
 jdk 1.8
+
+## 架构图
+flow

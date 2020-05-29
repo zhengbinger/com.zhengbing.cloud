@@ -3,6 +3,8 @@ package com.zhengbing.cloud.register;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -15,12 +17,18 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
  *
  * @author zhengbing
  */
+@RestController
 @EnableEurekaServer
 @SpringBootApplication
 public class ServerRegisterApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ServerRegisterApplication.class, args);
+    }
+
+    @GetMapping("/hello")
+    public String index(){
+        return "hello, zhengbing";
     }
 
 }
