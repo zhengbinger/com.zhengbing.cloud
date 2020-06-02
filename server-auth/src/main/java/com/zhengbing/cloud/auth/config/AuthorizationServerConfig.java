@@ -20,7 +20,7 @@ import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import javax.sql.DataSource;
 
 /**
- * /*
+ *
  * [/oauth/authorize]
  * [/oauth/token]
  * [/oauth/check_token]
@@ -88,7 +88,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      * 2. implicit：隐式授权类型。
      * 3. password：资源所有者（即用户）密码类型。
      * 4. client_credentials：客户端凭据（客户端ID以及Key）类型。
-     * 5.refresh_token：通过以上授权获得的刷新令牌来获取新的令牌
+     * 5. refresh_token：通过以上授权获得的刷新令牌来获取新的令牌
      * <p>
      * accessTokenValiditySeconds：token 的有效期
      * scopes：用来限制客户端访问的权限，在换取的 token 的时候会带上 scope 参数，只有在 scopes 定义内的，才可以正常换取 token。
