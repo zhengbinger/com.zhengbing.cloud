@@ -8,7 +8,7 @@ eureka:
     # 是否把自己作为服务注册到其他服务注册中心
     register-with-eureka: true
     service-url:
-      defaultZone: http://localhost:10002/eureka,http://localhost:10001/eureka
+      defaultZone: http://root:root@localhost:10002/eureka/,http://root:root@localhost:10001/eureka/
 
 spring:
   application:

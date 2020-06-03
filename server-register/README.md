@@ -1,6 +1,6 @@
 # 服务治理
 ## Spring Cloud Eureka实现服务治理
-### 创建注册中心
+### 创建注册中心 (euraka server)
 #### 步骤一：添加依赖
 创建一个基础的Spring Boot工程，并在pom.xml中引入需要的依赖内容：
 ``````
@@ -58,7 +58,7 @@ spring:
 
 正常启动后，可以通过http://localhost:10009 访问服务注册中心页面
 
-### 创建服务提供者
+### 创建服务提供者(euraka client)
 创建提供服务的客户端，并向服务注册中心注册。这里我们在服务提供者中尝试着提供一个接口来获取当前所有的服务信息        
 #### 步骤一  加入依赖
 创建一个Spring Boot应用，加入依赖：
@@ -125,4 +125,64 @@ public String test(){
 页面返回打印出注册中心的所有服务
 
 ## 高可用配置
+复制并修改注册中心配置文件 
+fetch-registry:true  //从其他的服务中心同步服务列表
+register-with-eureka:true // 把自己作为服务注册到其他服务注册中心
+defaultZone: http://localhost:10001/eureka   // 除本身的注册中心之外的其他服务注册中心
+
+```
+server: 
+    port: 10000
+
+eureka:
+  client:
+    # 是否从其他的服务中心同步服务列表
+    fetch-registry: true
+    # 是否把自己作为服务注册到其他服务注册中心
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:10002/eureka,http://localhost:10003/eureka
+```
+启动多注册中心的方式： 
+ 
+1. 打包运行方式：
+将程序打包成jar文件，在执行运行程序命令的时候，添加--spring.profiles.active=peer
+
+2. idea中运行
+run-->edit configurations -->将注册中心的运行配置进行复制-->Copy configrations   
+--> 修改 active profiles对应高可用节点的profiles名称即可
+
+#### 修改Euraka Client 是服务连接到注册中心集群
+修改eureka client 的配置文件,中的
+
+***同时注册到两个注册中心***
+eureka.client.service-url.defaultZone: http://localhost:10001/eureka/,http://localhost:10002/eureka/
+
+启动即可注册到集群。中途如需测试HA的使用情况，可以中途停掉一个注册中心，查看客户端是否会转移到另一个注册中心
+
+###给Eureka注册中心添加认证
+在pom.xml中添加对spring-security的依赖
+```
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+```
+修改配置文件，添加配置认证的用户名密码
+```
+spring.security.user.name=root
+spring.security.user.password=root
+```
+
+添加Java配置WebSecurityConfig
+默认情况下添加SpringSecurity依赖的应用每个请求都需要添加CSRF token才能访问，Eureka客户端注册时并不会添加，   
+所以需要配置/eureka/**路径不需要CSRF token。
+
+
+
+    
+   
+    
+    
+
 

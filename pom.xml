@@ -27,6 +27,7 @@
         <module>server-gateway</module>
         <module>server-monitor</module>
         <module>provider-user</module>
+        <module>cloud-common-starter</module>
     </modules>
 
     <dependencies>
