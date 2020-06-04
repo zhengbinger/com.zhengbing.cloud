@@ -7,9 +7,9 @@ spring:
       server:
         git:
           uri: https://github.com/zhengbinger/config-center
-          #          search-paths: '{application}'
+          # search-paths: '{application}'
           default-label: master #配置文件分支
           username: zhengbinger
           password: Zb@123456
           # 开启启动时直接从git获取配置
-          #          clone-on-start: true
+          # clone-on-start: true

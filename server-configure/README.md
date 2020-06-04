@@ -107,7 +107,6 @@ spring.cloud.config.server.svn.basedir=/data #默认在系统临时目录下面�
 http://localhost:11000/server-configure/dev  -- 默认使用master分支，等同于  http://localhost:11000/server-configure/dev/master
 http://localhost:11000/server-configure/dev/dev  -- 查看dev分支的配置文件
 
-
 ### 将配置中心的配置文件存放到 配置中心仓库
 
 

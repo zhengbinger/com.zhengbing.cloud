@@ -3,6 +3,9 @@ spring:
     name: @pom.artifactId@
   profiles:
     active: dev
+  cloud:
+    config:
+      label: dev
 
 eureka:
   client:
