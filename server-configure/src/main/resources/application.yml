@@ -1,13 +1,10 @@
-server:
-  port: 11000
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://root:root@localhost:10001/eureka/,http://root:root@localhost:10002/eureka/,http://root:root@localhost:10003/eureka/
-
 spring:
   application:
     name: @pom.artifactId@
   profiles:
-    active: native
+    active: dev
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:10001/eureka/,http://localhost:10002/eureka/,http://localhost:10003/eureka/
