@@ -1,8 +1,5 @@
 # 微服务配置中心
 ## Spring Cloud Config 实现分布式配置
-### 准备配置仓库
-    本人以相对路径（当前项目工程路径下的本地文件系统为例）
-    classpath:/config
 ### 创建配置中心
 #### 步骤一：加入依赖
 创建一个基础的Spring Boot工程，并在pom.xml中引入依赖
@@ -66,7 +63,7 @@ spring:
       config:
         server:
           git:
-            uri: file:///D:/Java/config
+            uri: file:///D:/Java/config（windows文件系统的前缀为『file:///』,其他系统的前缀为『file://』）
 ---
 
 # git 远程存储方式
@@ -106,8 +103,6 @@ spring.cloud.config.server.svn.basedir=/data #默认在系统临时目录下面�
 ### 查看配置文件库中的文件
 http://localhost:11000/server-configure/dev  -- 默认使用master分支，等同于  http://localhost:11000/server-configure/dev/master
 http://localhost:11000/server-configure/dev/dev  -- 查看dev分支的配置文件
-
-### 将配置中心的配置文件存放到 配置中心仓库
 
 
 

@@ -1,4 +1,4 @@
-# 服务治理
+# 服务发现与治理
 ## Spring Cloud Eureka实现服务治理
 ### 创建注册中心 (euraka server)
 #### 步骤一：添加依赖

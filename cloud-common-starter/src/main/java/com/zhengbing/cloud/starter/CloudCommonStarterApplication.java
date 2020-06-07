@@ -3,6 +3,9 @@ package com.zhengbing.cloud.starter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * @author zhengbing
+ */
 @SpringBootApplication
 public class CloudCommonStarterApplication {
 
