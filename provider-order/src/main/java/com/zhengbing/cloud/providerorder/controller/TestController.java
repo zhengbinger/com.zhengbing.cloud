@@ -1,7 +1,9 @@
 package com.zhengbing.cloud.providerorder.controller;
 
 import com.zhengbing.cloud.starter.pojo.Demo;
+import com.zhengbing.cloud.starter.service.HelloService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,12 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @Autowired
-    private Demo demo;
-
+    private TestComponent testComponent;
 
     @GetMapping("/demo")
     public String demo() {
-        System.out.println(demo.toString());
-        return demo.toString();
+        System.out.println(testComponent.getDemo());
+        return testComponent.getDemo();
     }
 }

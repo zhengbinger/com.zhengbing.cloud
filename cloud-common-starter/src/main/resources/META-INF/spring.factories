@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\com.zhengbing.cloud.starter.config.DemoConfig
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.zhengbing.cloud.starter.config.CloudConfigure

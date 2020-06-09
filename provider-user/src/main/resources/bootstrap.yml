@@ -5,10 +5,8 @@ eureka:
 
 
 spring:
-  profiles:
-    active: dev
   application:
-    name: auth-center
+    name: provider-user
   cloud:
     config:
       uri: http://localhost:11000/
