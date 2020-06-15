@@ -85,6 +85,7 @@ spring:
 	<groupId>org.tmatesoft.svnkit</groupId>
 	<artifactId>svnkit</artifactId>
 </dependency>
+
 spring.profiles.active=subversion
 spring.cloud.config.server.svn.uri=http://localhost/usvn/svn/datadev/docs/config/
 spring.cloud.config.server.svn.username=zhengbing
@@ -100,7 +101,12 @@ spring.cloud.config.server.svn.basedir=/data #默认在系统临时目录下面�
 {profile}映射到客户端上的"spring.profiles.active"（逗号分隔列表）
 {label}这是一个服务器端功能，标记"版本"分支的一组配置文件,例如: dev/master 等
 
-### 查看配置文件库中的文件
+### 查看配置文件库中的文件   
+/{application}/{profile}[/{label}]   
+/{application}-{profile}.yml   
+/{label}/{application}-{profile}.yml   
+/{application}-{profile}.properties   
+/{label}/{application}-{profile}.properties   
 http://localhost:11000/server-configure/dev  -- 默认使用master分支，等同于  http://localhost:11000/server-configure/dev/master
 http://localhost:11000/server-configure/dev/dev  -- 查看dev分支的配置文件
 

@@ -1,9 +1,7 @@
 package com.zhengbing.cloud.providerorder.controller;
 
-import com.zhengbing.cloud.starter.pojo.Demo;
-import com.zhengbing.cloud.starter.service.HelloService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,14 +11,24 @@ import org.springframework.web.bind.annotation.RestController;
  * @email: mydreambing@126.com
  */
 @RestController
+@RefreshScope
 public class TestController {
 
     @Autowired
-    private TestComponent testComponent;
+    private GetConfigWithValue getConfigWithValue;
+
+
+    @Autowired
+    private AutoRefreshConfig autoRefreshConfig;
 
     @GetMapping("/demo")
     public String demo() {
-        System.out.println(testComponent.getDemo());
-        return testComponent.getDemo();
+        System.out.println(getConfigWithValue.getDemo());
+        return getConfigWithValue.getDemo();
+    }
+
+    @GetMapping("/demo/refresh")
+    public String demoRefresh() {
+        return autoRefreshConfig.getName();
     }
 }

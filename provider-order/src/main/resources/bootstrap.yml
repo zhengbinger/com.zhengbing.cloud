@@ -10,3 +10,15 @@ spring:
     config:
       uri: http://localhost:11000
       profile: dev
+
+management:
+  endpoint:
+    shutdown:
+      enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+data:
+  name: NaN
