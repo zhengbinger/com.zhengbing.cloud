@@ -94,7 +94,7 @@ spring.cloud.config.server.svn.default-label=trunk
 spring.cloud.config.server.svn.basedir=/data #默认在系统临时目录下面，需要调整一下避免临时文件被系统自动清理
 ````
 
-## 环境库
+### 环境库
 环境库的资源有三个变量参数化：
 {application}映射到客户端的"spring.application.name"
 {profile}映射到客户端上的"spring.profiles.active"（逗号分隔列表）
@@ -104,6 +104,10 @@ spring.cloud.config.server.svn.basedir=/data #默认在系统临时目录下面�
 http://localhost:11000/server-configure/dev  -- 默认使用master分支，等同于  http://localhost:11000/server-configure/dev/master
 http://localhost:11000/server-configure/dev/dev  -- 查看dev分支的配置文件
 
+
+
+
+## 配置中心热刷新
 
 
 

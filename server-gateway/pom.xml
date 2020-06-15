@@ -8,8 +8,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>gateway-center</artifactId>
-    <name>gateway-center</name>
+    <artifactId>server-gateway</artifactId>
 
     <dependencies>
         <dependency>

@@ -7,7 +7,7 @@
         <artifactId>com.zhengbing.cloud</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>auth-center</artifactId>
+    <artifactId>server-auth</artifactId>
 
     <dependencies>
         <dependency>
