@@ -10,12 +10,9 @@ import org.springframework.stereotype.Component;
  **/
 @Data
 @Component
-public class TestComponent {
+public class GetConfigWithValue {
 
-    @Value("${name}")
+    @Value("${data.name}")
     private String demo;
 
-    public String getDemo() {
-        return demo;
-    }
 }

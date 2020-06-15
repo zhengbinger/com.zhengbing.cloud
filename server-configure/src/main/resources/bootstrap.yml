@@ -8,8 +8,12 @@ spring:
         git:
           uri: https://github.com/zhengbinger/config-center
           # search-paths: '{application}'
-          default-label: master #配置文件分支
+          default-label: master #配置默认git分支
           username: zhengbinger
           password: Zb@123456
           # 开启启动时直接从git获取配置
           # clone-on-start: true
+          # 跳过ssl证书验证
+          skip-ssl-validation: true
+          # http 请求超时时间(单位/秒)
+          timeout: 5
