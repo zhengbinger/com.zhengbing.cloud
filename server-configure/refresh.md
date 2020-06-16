@@ -1,4 +1,4 @@
-# 配置中心自动刷新配置
+# 配置中心自动刷新配置(Actuator)
 配置在客户端 provider-order
 ## 依赖引入
 ```
@@ -27,24 +27,21 @@ data:
   name: NaN
 ```
 
-## 实践操作
+## 具体操作
 定义两个接口，一个调用@Value注解获取配置文件中内容的方式/demo,另一个调用@ConfigureProperties注解获取配置文件内容的方式/demo/refresh   
 ```
+@Data
+@Component
+public class GetConfigWithValue {
+    @Value("${data.name}")
+    private String demo;
+}
+
 @Data
 @Component
 @ConfigurationProperties(prefix = "data")
 public class AutoRefreshConfig {
     private String name;
-}
-
-
-@Data
-@Component
-public class GetConfigWithValue {
-
-    @Value("${data.name}")
-    private String demo;
-
 }
 
 @RestController
@@ -53,7 +50,6 @@ public class TestController {
 
     @Autowired
     private GetConfigWithValue getConfigWithValue;
-
 
     @Autowired
     private AutoRefreshConfig autoRefreshConfig;
@@ -74,6 +70,15 @@ public class TestController {
 启动配置中心与客户端，分别在浏览器调用两个不同方式获取配置文件内容的方式的接口 /demo   /demo/refresh   
 浏览器中返回了相同的内容，zhengbing 
 
-然后使用postman 调用  /actuator/refresh 接口，来刷新配置文件
+然后使用postman 调用  /actuator/refresh 接口，来刷新配置文件,
+如果git上的配置文件没有发生修改,则返回[],否则返回如下相似内容：
+```json
+[
+    "config.client.version",
+    "data.name"
+]
+```
 
-再刷新两个调用配置文件内容的浏览器页面，会发现 /demo/refresh接口返回在浏览器上的内容已经更新，但是/demo 返回的内容还是修改之前的配置文件中的内容
+再刷新两个调用配置文件内容的浏览器页面，/demo/refresh接口返回在浏览器上的内容已经更新，/demo 返回的内容还是修改之前的配置文件中的内容
+
+
