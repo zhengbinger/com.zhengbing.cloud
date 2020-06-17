@@ -1,0 +1,19 @@
+server:
+  port: 12000
+
+eureka:
+  client:
+    service-url:
+      defaultZone:  http://localhost:10001/eureka/,http://localhost:10002/eureka/,http://localhost:10003/eureka/
+
+spring:
+  application:
+    name: server-gateway
+  profiles:
+    active: dev
+  cloud:
+    config:
+      profile: dev
+      discovery:
+        enabled: true
+        service-id: server-configure

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author zhengbing
- * @descript
  * @date 2019-08-17
  * @email mydreambing@126.com
  * @since version 1.0

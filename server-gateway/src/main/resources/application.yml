@@ -1,14 +1,6 @@
-server:
-  port: 12000
-
-eureka:
-  client:
-    service-url:
-      defaultZone:  http://localhost:10001/eureka/,http://localhost:10002/eureka/,http://localhost:10003/eureka/
-
 spring:
-  application:
-    name: @pom.artifactId@
-  cloud:
-    config:
-      uri: http://localhost:11000/
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
