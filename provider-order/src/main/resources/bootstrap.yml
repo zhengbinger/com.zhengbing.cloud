@@ -1,6 +1,11 @@
 server:
   port: 9100
 
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:10001/eureka/,http://localhost:10002/eureka/,http://localhost:10003/eureka/
+
 spring:
   application:
     name: provider-order
@@ -8,8 +13,10 @@ spring:
     active: dev
   cloud:
     config:
-      uri: http://localhost:11000
       profile: dev
+      discovery:
+        enabled: true
+        service-id: server-configure
 
 management:
   endpoint:
