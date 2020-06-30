@@ -1,4 +1,4 @@
-package com.zhengbing.cloud.gatewaycenter.filter;
+package com.zhengbing.cloud.servergateway.filter;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;

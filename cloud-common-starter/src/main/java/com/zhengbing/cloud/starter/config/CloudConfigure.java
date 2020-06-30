@@ -18,7 +18,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConditionalOnClass(CloudProperties.class)
 @EnableConfigurationProperties(CloudProperties.class)
-//@ConditionalOnProperty(prefix = "cloud.zhengbing", value = "enable", matchIfMissing = true)
 public class CloudConfigure {
 
     @Autowired

@@ -1,4 +1,4 @@
-package com.zhengbing.cloud.gatewaycenter.filter;
+package com.zhengbing.cloud.servergateway.filter;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
@@ -10,8 +10,9 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 
 /**
+ * 访问日志记录器
+ *
  * @author zhengbing
- * @descript
  * @date 2019-08-17
  * @email mydreambing@126.com
  * @since version 1.0
@@ -42,7 +43,7 @@ public class AccessLogFilter extends ZuulFilter {
         RequestContext requestContext = RequestContext.getCurrentContext();
         HttpServletRequest request = requestContext.getRequest();
         log.info("Request \"{}\" spent : {} seconds.", request.getRequestURI(),
-                (System.currentTimeMillis() - Long.valueOf(requestContext.get("api_request_time").toString())) / 1000);
+                (System.currentTimeMillis() - Long.parseLong(requestContext.get("api_request_time").toString())) / 1000);
         return null;
     }
 }
